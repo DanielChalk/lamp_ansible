@@ -4,3 +4,8 @@
     become_method: sudo
     roles:
     - web
+  - hosts: bal
+    become: yes
+    become_method: sudo
+    roles:
+    - balancer

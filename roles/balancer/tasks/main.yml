@@ -1,0 +1,20 @@
+---
+  - name: install
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - haproxy
+      - libselinux-python
+
+  - name: enable haproxy
+    service:
+      name: haproxy
+      enabled: true
+
+  - name: haproxy config
+    template:
+      src=haproxy.cfg.j2
+      dest=/etc/haproxy/haproxy.cfg
+    notify:
+      - restart haproxy

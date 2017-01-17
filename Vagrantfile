@@ -20,6 +20,8 @@ Vagrant.configure("2") do |config|
         if type == 'ctl'
           node.vm.provision 'ansible_local' do |ansible|
             ansible.playbook = "main.yml"
+            ansible.limit = 'all'
+            ansible.verbose = true
             ansible.inventory_path  = 'inventory/vagrant.ini'
           end
         end

@@ -1,0 +1,5 @@
+---
+web_service_nginx: nginx16-nginx
+web_packages:
+  - centos-release-scl
+  - nginx16

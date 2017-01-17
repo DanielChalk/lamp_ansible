@@ -1,0 +1,8 @@
+web:
+  - 192.168.33.20
+bal:
+  - 192.168.33.10
+# we have a node as an ansible controller, in production we should have a bastion so
+# we will follow that pattern here.
+ctl:
+  - 192.168.33.2

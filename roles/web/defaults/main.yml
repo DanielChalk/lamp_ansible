@@ -1,5 +1,13 @@
 ---
+web_user: web
+web_group: web
+web_home_dir: "/opt/{{ web_user }}"
+web_build_dir: "{{ web_home_dir }}/builds"
+web_current_path: "{{ web_home_dir }}/current"
+
 web_service_nginx: nginx16-nginx
+web_service_php: php-fpm
 web_packages:
   - centos-release-scl
   - nginx16
+  - php-fpm

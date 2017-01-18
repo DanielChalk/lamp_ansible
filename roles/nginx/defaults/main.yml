@@ -1,0 +1,14 @@
+---
+nginx_user: nginx
+nginx_group: "{{ nginx_user }}"
+nginx_service: nginx
+nginx_package: nginx
+nginx_conf: /etc/nginx/nginx.conf
+nginx_conf_dir: /etc/nginx/conf.d
+
+# nginx configuration
+
+nginx_workers: auto
+nginx_pid: /var/run/nginx.pid
+nginx_error_log: /var/log/nginx/error.log
+nginx_worker_connections: 1024

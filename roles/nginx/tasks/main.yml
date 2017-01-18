@@ -7,11 +7,15 @@
   with_items:
     - "{{ nginx_package }}"
     - libselinux-python
+  tags: 
+  - nginx
 
 - name: enable
   service:
     name: "{{ nginx_service }}"
     enabled: true
+  tags: 
+  - nginx
 
 - name: config
   template:
@@ -19,3 +23,5 @@
     dest: "{{ nginx_conf }}"
   notify:
     - restart nginx
+  tags: 
+  - nginx

@@ -3,8 +3,12 @@
   yum:
     name: "{{ php_fpm_package }}"
     state: present
+  tags:
+  - php-fpm
 
 - name: service
   service:
     name: "{{ php_fpm_service }}"
     enabled: true
+  tags:
+  - php-fpm

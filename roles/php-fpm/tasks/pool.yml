@@ -5,3 +5,5 @@
     dest: "{{ php_fpm_pool_file }}"
   notify:
   - restart php-fpm
+  tags:
+  - php-fpm

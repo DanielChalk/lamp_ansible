@@ -18,9 +18,24 @@ To get everything running in Vagrant is very straight forward
 vagrant up --provision
 ```
 
+Alternatively you can use AWS with terraform, you will of course neen to make sure
+you have access keys setup and a key to be used to provision the hosts. If you're
+using windows, it's best to use the controller vagrant box to provision AWS with
+Ansible.
+
+```bash
+# apply terraform and use your own ssh key_name so you can ssh into the hosts
+terraform apply -var "key_name=$AWS_KEY"
+# you will need to make you're inventory reflect the hosts, we can automate this
+# no time for that at the moment though.
+vi inventory/aws.ini
+# provision the nodes
+ansible-playbook -i inventory/aws.ini main.yml
+```
+
 ## To do
 
 - Add php composer
 - Add MySQL or MariaDB so we have a backend database
-- Add a CMS or a Framework such a laravel
+- Add a CMS or a Framework such a Laravel
 - Add application deployment

@@ -4,7 +4,6 @@
     name: "{{ app_user }}"
     home: "{{ app_home_dir }}"
     shell: /sbin/nologin
-    group: "{{ app_user }}"
 
 - stat:
     path: "{{ app_build_dir }}"
@@ -16,7 +15,7 @@
 
 - name: dirs
   file:
-    dest: "{{ app_home_dir }}"
+    dest: "{{ item }}"
     state: directory
     owner: "{{ app_user }}"
     group: "{{ app_user }}"

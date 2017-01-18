@@ -1,5 +1,6 @@
 web:
   - 192.168.33.20
+  - 192.168.33.21
 bal:
   - 192.168.33.10
 # we have a node as an ansible controller, in production we should have a

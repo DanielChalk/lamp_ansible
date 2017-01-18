@@ -4,14 +4,21 @@
     name: "{{ app_user }}"
     home: "{{ app_home_dir }}"
     shell: /sbin/nologin
+  tags: 
+    - app
+    - user
 
 - stat:
     path: "{{ app_build_dir }}"
   register: stat_app_build_dir
+  tags: 
+    - app
 
 - stat:
     path: "{{ app_current_path }}"
   register: stat_app_current_path
+  tags: 
+    - app
 
 - name: dirs
   file:
@@ -24,6 +31,8 @@
     - "{{ app_home_dir }}"
     - "{{ app_build_dir }}"
     - "{{ app_build_dir }}/test"
+  tags: 
+    - app
 
 - name: test index
   template:
@@ -32,6 +41,8 @@
     owner: "{{ app_user }}"
     group: "{{ app_user }}"
     mode: 0775
+  tags: 
+    - app
 
 - name: test symlink
   file:
@@ -42,3 +53,5 @@
     state: link
     mode: 0775
   when: stat_app_current_path.stat.isdir is not defined
+  tags: 
+    - app

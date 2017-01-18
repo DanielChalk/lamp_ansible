@@ -7,6 +7,9 @@
     group: "{{ nginx_group }}"
   notify:
     - restart nginx
+  tags:
+    - app
+    - nginx
 
 - name: nginx disable default vhost
   file:
@@ -14,3 +17,6 @@
     state: absent
   notify:
     - restart nginx
+  tags:
+    - app
+    - nginx

@@ -1,0 +1,27 @@
+---
+php_fpm_package: php-fpm
+php_fpm_service: php-fpm
+php_fpm_config_dir: /etc/php-fpm.d
+php_fpm_pool: www
+php_fpm_pool_file: "{{ php_fpm_config_dir }}/{{ php_fpm_pool }}.conf"
+
+# default pool configuration
+php_fpm_user: www
+php_fpm_group: www
+php_fpm_pool_listen: 127.0.0.1:9000
+php_fpm_pool_listen_allowed_clients: 127.0.0.1
+php_fpm_chdir: /var/www
+php_fpm_pm: dynamic
+php_fpm_pm_max_children: 50
+php_fpm_pm_start_servers: 5
+php_fpm_pm_min_spare_servers: 5
+php_fpm_pm_max_spare_servers: 35
+php_fpm_env: [] # add your application env vars here
+php_fpm_admin_value:
+  error_log: "/var/log/php-fpm/{{ php_fpm_pool }}-error.log"
+  memory_limit: 128M
+php_fpm_admin_flag:
+  log_errors: "on"
+php_fpm_php_value:
+  session.save_handler: file
+  session.save_path: /var/lib/php/session

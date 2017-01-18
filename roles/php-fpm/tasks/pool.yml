@@ -1,0 +1,7 @@
+---
+- name: config
+  template:
+    src: fpm-pool.conf.j2
+    dest: "{{ php_fpm_pool_file }}"
+  notify:
+  - restart php-fpm

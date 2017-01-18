@@ -1,0 +1,10 @@
+---
+- name: package
+  yum:
+    name: "{{ php_fpm_package }}"
+    state: present
+
+- name: service
+  service:
+    name: "{{ php_fpm_service }}"
+    enabled: true

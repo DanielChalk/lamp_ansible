@@ -8,6 +8,8 @@ I chose to create my own roles over ansible Galaxy. Using community roles is fin
 
 Roles folder is used for packages to be installed and managed, and the site-roles folder is used for specific functions E.G (web application, load balancer, database server). This allows us to set sensible defaults at a role level, but then be able to do the same for the hosts function, then you can use group and host vars to override.
 
+Roles should eventually be put into their own repos and managed by Galaxy as dependencies
+
 There is some limited tag usage.
 
 ## usage

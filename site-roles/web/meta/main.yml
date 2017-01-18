@@ -1,0 +1,7 @@
+---
+galaxy_info:
+  author: Daniel Chalk
+  description: web
+dependencies:
+  - role: nginx
+  - role: php-fpm

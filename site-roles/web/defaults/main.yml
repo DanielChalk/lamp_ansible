@@ -1,0 +1,8 @@
+---
+app_name: app
+app_user: "{{ app_name }}"
+app_group: "{{ app_name }}"
+app_home_dir: "/opt/{{ app_user }}"
+app_build_dir: "{{ app_home_dir }}/builds"
+app_current_path: "{{ app_home_dir }}/current"
+app_listen: "*:80"

@@ -1,0 +1,45 @@
+---
+- name: user
+  user:
+    name: "{{ app_user }}"
+    home: "{{ app_home_dir }}"
+    shell: /sbin/nologin
+    group: "{{ app_user }}"
+
+- stat:
+    path: "{{ app_build_dir }}"
+  register: stat_app_build_dir
+
+- stat:
+    path: "{{ app_current_path }}"
+  register: stat_app_current_path
+
+- name: dirs
+  file:
+    dest: "{{ app_home_dir }}"
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: 0775
+  with_items:
+    - "{{ app_home_dir }}"
+    - "{{ app_build_dir }}"
+    - "{{ app_build_dir }}/test"
+
+- name: test index
+  template:
+    dest: "{{ app_build_dir }}/test/index.php"
+    src: "index.php.j2"
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: 0775
+
+- name: test symlink
+  file:
+    src: "{{ app_build_dir }}/test"
+    dest: "{{ app_current_path }}"
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    state: link
+    mode: 0775
+  when: stat_app_current_path.stat.isdir is not defined

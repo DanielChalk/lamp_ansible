@@ -1,0 +1,35 @@
+server {
+    listen {{ app_listen }};
+
+    location / {
+        root   {{ app_current_path }};
+        index  index.php;
+    }
+
+    # redirect server error pages to the static page /40x.html
+    #
+    error_page  404              /404.html;
+    location = /40x.html {
+        root   {{ app_current_path }};
+    }
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   {{ app_current_path }};
+    }
+
+    location ~ \.php$ {
+       fastcgi_pass   {{ php_fpm_pool_listen }};
+       fastcgi_index  index.php;
+       fastcgi_param  SCRIPT_FILENAME  {{ app_current_path }}/$fastcgi_script_name;
+       fastcgi_intercept_errors on;
+       include        fastcgi_params;
+    }
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    #location ~ /\.ht {
+    #    deny  all;
+    #}
+}

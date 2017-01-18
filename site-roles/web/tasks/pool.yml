@@ -1,0 +1,9 @@
+---
+- name: fpm-pool
+  include_role:
+    name: php-fpm
+    tasks_from: pool
+  vars:
+    php_fpm_user: "{{ app_user }}"
+    php_fpm_group: "{{ app_group }}"
+    php_fpm_chdir: "{{ app_current_path }}"

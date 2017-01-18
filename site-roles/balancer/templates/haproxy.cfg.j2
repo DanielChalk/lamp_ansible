@@ -10,6 +10,7 @@
 # Global settings
 #---------------------------------------------------------------------
 global
+    daemon
     log         127.0.0.1 local2
 
     chroot      /var/lib/haproxy
@@ -17,10 +18,6 @@ global
     maxconn     4000
     user        haproxy
     group       haproxy
-    daemon
-
-    # turn on stats unix socket
-    stats socket /var/lib/haproxy/stats
 
 #---------------------------------------------------------------------
 # common defaults that all the 'listen' and 'backend' sections will
@@ -29,7 +26,7 @@ global
 defaults
     mode                    http
     log                     global
-    option                  tcplog
+    option                  httplog
     option                  dontlognull
     option                  http-server-close
     retries                 3
@@ -41,20 +38,21 @@ defaults
     timeout check           10s
     maxconn                 3000
 
+listen stats
+	# disabled
+	bind       :8080
+	stats uri /
+
 #---------------------------------------------------------------------
 # main frontend which proxys to the backends
 #---------------------------------------------------------------------
-frontend web_front
+frontend front
     mode http
     bind *:80
-    default_backend web_back
+    default_backend back
 
-# Redis backend
-backend web_back
+backend back
     mode http
-    timeout server 3h
-    option httpchk /
-    http-check expect rstatus (2|3)[0-9][0-9]
 {% for srv in groups['web'] %}
-    server {{ hostvars[srv]['ansible_hostname'] }} {{ hostvars[srv]['ansible_host'] }}
+    server {{ hostvars[srv]['inventory_hostname'] }} {{ hostvars[srv]['ansible_host'] }}:{{ app_listen }} check # fall 3 rise 2
 {%  endfor %}
